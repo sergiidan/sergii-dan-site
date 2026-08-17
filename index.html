@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sergii Danyliuk — Platform Engineer</title>
+  <meta name="description" content="Platform Engineer — AWS, Kubernetes, Terraform, and agentic AI workflows. EKS platforms, GitOps with ArgoCD, and Claude Code agent skills that review infrastructure.">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Theme: follow system by default; toggle overrides and persists. First-party, ~15 lines.
+    (function () {
+      var saved = localStorage.getItem("theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    })();
+  </script>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#top"><span class="brand-mark"></span>Sergii Danyliuk</a>
+  <nav class="topnav">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a class="btn-contact" href="mailto:sergii.dan.work@gmail.com">Contact</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme">◐</button>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Platform Engineer — Miami, FL</p>
+      <h1>I run Kubernetes platforms that stay up — and pay for themselves.</h1>
+      <p class="hero-sub">
+        Currently at Chewy, where a six-person platform team runs 40+ applications across 7 EKS
+        clusters. I work AI-first with the guardrails to do it safely: agent skills review our
+        Terraform and Kubernetes changes before they merge.
+      </p>
+      <div class="hero-cta">
+        <a class="btn-primary" href="mailto:sergii.dan.work@gmail.com">Email me</a>
+        <a href="https://linkedin.com/in/sergii-danyliuk" rel="me noopener">LinkedIn</a>
+        <a href="resume.pdf" download="Sergii-Danyliuk-Platform-Engineer.pdf">Résumé, PDF</a>
+      </div>
+    </div>
+    <figure class="hero-photo">
+      <img src="headshot.jpg" alt="Portrait of Sergii Danyliuk" width="800" height="1200">
+    </figure>
+  </section>
+
+  <!-- Stat band -->
+  <section class="stats" aria-label="Key numbers">
+    <div><strong>40+</strong><span>apps · 7 EKS clusters</span></div>
+    <div><strong>99.5%</strong><span>availability SLO</span></div>
+    <div><strong>~30%</strong><span>compute cost cut</span></div>
+    <div><strong>5 min → 45 s</strong><span>node scale-up</span></div>
+  </section>
+
+  <!-- Selected work -->
+  <section id="work" class="section">
+    <h2>Selected work</h2>
+    <p class="section-lede">Four from the platform team at Chewy, one from my Samsara years.</p>
+
+    <article class="work">
+      <div class="work-index">01</div>
+      <div class="work-body">
+        <h3>Karpenter: a third off the compute bill</h3>
+        <p class="work-meta">Chewy · fleet ~200 → ~140 nodes · scale-up ~5 min → ~45 sec</p>
+        <p>
+          Node provisioning ran on Cluster Autoscaler: slow to react — around five minutes for
+          capacity to arrive — and chronically over-provisioned, because node groups can't
+          right-size to what pods actually request.
+        </p>
+        <p>
+          I migrated provisioning to Karpenter: just-in-time nodes sized to the pending pods, with
+          workload consolidation packing the fleet tighter as demand moves. Workloads are split
+          across NodePools — spot instances for general workloads, on-demand for critical cluster
+          operations — enforced with taints and tolerations so nothing critical lands on capacity
+          that can disappear.
+        </p>
+        <p>
+          The fleet went from roughly 200 nodes to 140 — about 30% off compute spend — and node
+          scale-up dropped from ~5 minutes to ~45 seconds, which is the difference developers
+          actually feel.
+        </p>
+        <ul class="stack" aria-label="Stack">
+          <li>Karpenter</li><li>EKS</li><li>Terraform</li><li>EC2 Spot</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="work">
+      <div class="work-index">02</div>
+      <div class="work-body">
+        <h3>Agent skills that gate infrastructure changes</h3>
+        <p class="work-meta">Chewy · 15+ Claude Code skills · CI review gates at PR time</p>
+        <p>
+          Review is where expensive mistakes get caught, and it's inconsistent — a careful reviewer
+          catches a destructive Terraform change at 9am and misses it at 6pm. I built 15+ Claude
+          Code agent skills for our infra and deployment work so the thorough version is the
+          default. The three I go deepest on: a Terraform plan reviewer that risk-tiers every
+          change and leads with an apply/don't-apply verdict, a Kubernetes manifest reviewer that
+          checks limits, probes, image pinning and RBAC, and an incident-triage assistant that
+          walks a firing alert change-first.
+        </p>
+        <p>
+          Each skill pairs the model's judgment with a deterministic Python script: the script
+          parses the actual plan JSON or YAML and reports exactly what's there — every destroy,
+          every IAM widening, every missing limit — and exits non-zero on critical findings so CI
+          can block a bad apply. The model explains and prioritizes; it doesn't invent findings.
+        </p>
+        <p>
+          I validated them with an eval loop — every test case run with and without the skill,
+          graded against fixed checks. The honest result: the base model is already strong, and the
+          repeatable win is determinism plus safety discipline. The skills recommend rollbacks;
+          they never run them.
+        </p>
+        <ul class="stack" aria-label="Stack">
+          <li>Claude Code</li><li>Python</li><li>GitHub Actions</li><li>Terraform</li><li>Kubernetes</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="work">
+      <div class="work-index">03</div>
+      <div class="work-body">
+        <h3>GitOps with nothing hand-deployed</h3>
+        <p class="work-meta">Chewy · 40+ apps · 7 EKS clusters</p>
+        <p>
+          App delivery is declarative, pull-based GitOps with ArgoCD: Git is the source of truth,
+          GitHub Actions runs the promotion pipeline that updates it, and ArgoCD reconciles the
+          clusters to match — with automated drift detection and rollbacks that are just a revert.
+        </p>
+        <p>
+          The platform plumbing is automated to the same standard: cert-manager syncs TLS
+          certificates with ACM, external-dns manages Route53 records, and secrets reach pods
+          through the AWS Secrets Manager CSI driver over IRSA. No manual steps between a merged
+          PR and a running, certificated, DNS-addressable service.
+        </p>
+        <ul class="stack" aria-label="Stack">
+          <li>ArgoCD</li><li>Helm</li><li>GitHub Actions</li><li>cert-manager</li><li>external-dns</li><li>IRSA</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="work">
+      <div class="work-index">04</div>
+      <div class="work-body">
+        <h3>A data layer with zero standing credentials</h3>
+        <p class="work-meta">Chewy · Multi-AZ PostgreSQL on RDS · recovery drilled, not assumed</p>
+        <p>
+          The databases run Multi-AZ PostgreSQL on RDS with no static credentials anywhere: pods
+          mint short-lived tokens through IAM database authentication over IRSA, so there is
+          nothing to rotate and nothing to leak.
+        </p>
+        <p>
+          Recovery is proved, not assumed — EventBridge-driven snapshot lifecycle, and
+          point-in-time-recovery restore drills that actually run, because a backup you've never
+          restored is a hope, not a plan.
+        </p>
+        <ul class="stack" aria-label="Stack">
+          <li>RDS</li><li>IAM · IRSA</li><li>EventBridge</li><li>Lambda</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="work">
+      <div class="work-index">05</div>
+      <div class="work-body">
+        <h3>Moving live infrastructure without downtime</h3>
+        <p class="work-meta">Samsara · 150+ resources · 5 AWS accounts</p>
+        <p>
+          I migrated live infrastructure from CloudFormation to Terraform — 150+ resources across
+          5 AWS accounts — with zero downtime, behind a documented runbook and rollback plan for
+          every stage.
+        </p>
+        <p>
+          The same modernization took IAM with it: long-lived users and static access keys replaced
+          with role-based access — 50+ roles scoped with permission boundaries, cross-account
+          access via STS assume-role — and zero standing access keys in CI once the pipelines moved
+          to GitHub Actions OIDC federation.
+        </p>
+        <ul class="stack" aria-label="Stack">
+          <li>Terraform</li><li>CloudFormation</li><li>IAM · STS</li><li>GitHub Actions OIDC</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <h2>About</h2>
+    <p class="eyebrow">Miami, FL</p>
+    <p>
+      I'm a Platform Engineer with six years in — the last three at Chewy, where a six-person
+      platform team (four engineers, two principals) runs the EKS platform behind 40+ applications
+      across 7 clusters: three app environments and four platform clusters, all Terraform-managed,
+      all delivered from Git with ArgoCD, held to a 99.5% availability SLO with error-budget and
+      burn-rate alerting.
+    </p>
+    <p>
+      Before that I spent three years at Samsara as a DevOps engineer. That's where I learned to
+      change infrastructure that's already carrying traffic: migrating live stacks from
+      CloudFormation to Terraform without downtime, modernizing IAM across five accounts, and
+      wiring the CI/CD that made both repeatable.
+    </p>
+    <p>
+      The last stretch has changed how I work. I run Claude Code daily — plans with checkpoints,
+      conventions committed as context, every change through a PR I review. I built our agent
+      skills that review Terraform plans and Kubernetes manifests at PR time, with deterministic
+      scripts doing the mechanical checks and hard lines the agent doesn't cross: it recommends,
+      it never applies. The interesting problem in 2026 isn't whether AI can do infrastructure
+      work — it's building the guardrails so it does it safely. That's a platform problem, and
+      platform problems are what I like.
+    </p>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="section">
+    <h2>Experience</h2>
+
+    <div class="job">
+      <div class="job-head">
+        <h3>Chewy</h3>
+        <p class="job-loc">Plantation, FL</p>
+      </div>
+      <p class="job-role">Platform Engineer <span>Sep 2023 – Present</span></p>
+      <ul>
+        <li>Cut EKS compute cost ~30% (fleet from ~200 to ~140 nodes) and node scale-up time from ~5 min to ~45 sec by migrating provisioning from Cluster Autoscaler to Karpenter — just-in-time, right-sized nodes with workload consolidation, split across NodePools (spot for general workloads, on-demand for critical cluster ops).</li>
+        <li>Moved app delivery to declarative, pull-based GitOps with ArgoCD — Git as the source of truth, automated drift detection, and fast rollbacks across 40+ apps and 7 EKS clusters.</li>
+        <li>Automated TLS, DNS, and secrets with cert-manager, external-dns, and the AWS Secrets Manager CSI driver over IRSA — ACM-synced certs, Route53 records, and pod secret injection with no manual steps.</li>
+        <li>Ran Multi-AZ PostgreSQL on RDS with zero static database credentials — pods mint short-lived tokens via IAM auth over IRSA — and proved recovery with EventBridge-driven snapshot lifecycle and PITR restore drills.</li>
+        <li>Anchored the platform to a 99.5% availability SLO — error-budget and burn-rate alerting via Prometheus/Grafana/Alertmanager, logs dual-shipped through EFK to S3, and EKS control-plane audit logs in CloudWatch.</li>
+        <li>Built 15+ Claude Code agent skills for the platform's infra and deployment work — CI review gates that block unsafe Terraform and Kubernetes changes at PR time instead of in production.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <h3>Samsara</h3>
+        <p class="job-loc">San Francisco, CA</p>
+      </div>
+      <p class="job-role">DevOps Engineer <span>Oct 2020 – Aug 2023</span></p>
+      <ul>
+        <li>Migrated live infrastructure from CloudFormation to Terraform — 150+ resources across 5 AWS accounts — with zero downtime via a documented runbook and rollback plan.</li>
+        <li>Wired GitHub Actions CI/CD across infra and apps with OIDC federation — plan-on-PR / apply-on-merge for Terraform, image build → ECR → Helm deploy for services.</li>
+        <li>Replaced long-lived IAM users and static access keys with role-based access across 5 AWS accounts — 50+ roles scoped with permission boundaries, cross-account access via STS assume-role, and zero standing access keys in CI after moving pipelines to OIDC.</li>
+        <li>Cut S3 storage cost ~$20K/year with lifecycle rules that transition and expire objects by age across buckets.</li>
+        <li>Optimized multi-stage Docker builds across Go, Node.js, and Python microservices on a distroless base — cutting image sizes ~60% (typical service ~1.2 GB → ~450 MB) and shrinking pull/deploy times and attack surface.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section">
+    <h2>Skills</h2>
+    <p class="section-lede">Tools I've run in production and can talk through end to end.</p>
+    <dl class="skills">
+      <div><dt>Cloud &amp; Infra</dt><dd>AWS · Linux · Docker · Kubernetes · Karpenter</dd></div>
+      <div><dt>IaC &amp; Delivery</dt><dd>Terraform · ArgoCD (GitOps) · GitHub Actions · Helm</dd></div>
+      <div><dt>Security</dt><dd>IAM · IRSA · Kubernetes RBAC · OIDC</dd></div>
+      <div><dt>Networking</dt><dd>cert-manager · external-dns</dd></div>
+      <div><dt>Observability</dt><dd>Prometheus · Grafana · Alertmanager · CloudWatch · EFK (Fluent Bit / Elasticsearch / Kibana)</dd></div>
+      <div><dt>AI / Agentic</dt><dd>Claude Code (15+ custom agent skills) · context engineering (CLAUDE.md / AGENTS.md) · CI-gated review automation (Python)</dd></div>
+      <div><dt>Scripting</dt><dd>Bash · Python</dd></div>
+    </dl>
+    <h3 class="certs-title">Certifications</h3>
+    <ul class="certs">
+      <li>AWS Certified Solutions Architect – Associate</li>
+      <li>HashiCorp Certified: Terraform Associate (004)</li>
+      <li>CKA: Certified Kubernetes Administrator</li>
+      <li>CKAD: Certified Kubernetes Application Developer</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    <a href="mailto:sergii.dan.work@gmail.com">sergii.dan.work@gmail.com</a> ·
+    <a href="https://linkedin.com/in/sergii-danyliuk" rel="me noopener">LinkedIn</a> ·
+    <a href="resume.pdf" download="Sergii-Danyliuk-Platform-Engineer.pdf">Résumé</a>
+  </p>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById("theme-toggle");
+    btn.addEventListener("click", function () {
+      var root = document.documentElement;
+      var current = root.getAttribute("data-theme") ||
+        (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      var next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  })();
+</script>
+
+</body>
+</html>
