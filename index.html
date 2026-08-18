@@ -37,8 +37,9 @@
       <h1>I run Kubernetes platforms that stay up — and pay for themselves.</h1>
       <p class="hero-sub">
         Currently at Chewy, where a six-person platform team runs 40+ applications across 7 EKS
-        clusters. I work AI-first with the guardrails to do it safely: agent skills review our
-        Terraform and Kubernetes changes before they merge.
+        clusters. I work AI-first with the guardrails to do it safely — 15+ Claude Code and Codex
+        agent skills that review infrastructure changes before they merge and took mean incident
+        resolution from ~2 hours to under 30 minutes.
       </p>
       <div class="hero-cta">
         <a class="btn-primary" href="mailto:sergii.dan.work@gmail.com">Email me</a>
@@ -56,7 +57,7 @@
     <div><strong>40+</strong><span>apps · 7 EKS clusters</span></div>
     <div><strong>99.5%</strong><span>availability SLO</span></div>
     <div><strong>~30%</strong><span>compute cost cut</span></div>
-    <div><strong>5 min → 45 s</strong><span>node scale-up</span></div>
+    <div><strong>2 h → 30 min</strong><span>incident resolution</span></div>
   </section>
 
   <!-- Selected work -->
@@ -95,13 +96,13 @@
     <article class="work">
       <div class="work-index">02</div>
       <div class="work-body">
-        <h3>Agent skills that gate infrastructure changes</h3>
-        <p class="work-meta">Chewy · 15+ Claude Code skills · CI review gates at PR time</p>
+        <h3>Agent skills that gate changes and cut incident time</h3>
+        <p class="work-meta">Chewy · 15+ Claude Code and Codex skills · MTTR ~2 h → under 30 min</p>
         <p>
           Review is where expensive mistakes get caught, and it's inconsistent — a careful reviewer
           catches a destructive Terraform change at 9am and misses it at 6pm. I built 15+ Claude
-          Code agent skills for our infra and deployment work so the thorough version is the
-          default. The three I go deepest on: a Terraform plan reviewer that risk-tiers every
+          Code and Codex agent skills for our infra and deployment work so the thorough version is
+          the default. The three I go deepest on: a Terraform plan reviewer that risk-tiers every
           change and leads with an apply/don't-apply verdict, a Kubernetes manifest reviewer that
           checks limits, probes, image pinning and RBAC, and an incident-triage assistant that
           walks a firing alert change-first.
@@ -118,8 +119,13 @@
           repeatable win is determinism plus safety discipline. The skills recommend rollbacks;
           they never run them.
         </p>
+        <p>
+          The triage side is where the time shows up. Walking an alert change-first — what deployed
+          right before this? — instead of starting from log-staring took mean resolution from about
+          two hours to under 30 minutes.
+        </p>
         <ul class="stack" aria-label="Stack">
-          <li>Claude Code</li><li>Python</li><li>GitHub Actions</li><li>Terraform</li><li>Kubernetes</li>
+          <li>Claude Code</li><li>Codex</li><li>Python</li><li>GitHub Actions</li><li>Terraform</li><li>Kubernetes</li>
         </ul>
       </div>
     </article>
@@ -195,7 +201,7 @@
     <h2>About</h2>
     <p class="eyebrow">Miami, FL</p>
     <p>
-      I'm a Platform Engineer with six years in — the last three at Chewy, where a six-person
+      I'm a Platform Engineer with 5+ years in — the last three at Chewy, where a six-person
       platform team (four engineers, two principals) runs the EKS platform behind 40+ applications
       across 7 clusters: three app environments and four platform clusters, all Terraform-managed,
       all delivered from Git with ArgoCD, held to a 99.5% availability SLO with error-budget and
@@ -210,9 +216,9 @@
     <p>
       The last stretch has changed how I work. I run Claude Code daily — plans with checkpoints,
       conventions committed as context, every change through a PR I review. I built our agent
-      skills that review Terraform plans and Kubernetes manifests at PR time, with deterministic
-      scripts doing the mechanical checks and hard lines the agent doesn't cross: it recommends,
-      it never applies. The interesting problem in 2026 isn't whether AI can do infrastructure
+      skills with Claude Code and Codex — they review Terraform plans and Kubernetes manifests at
+      PR time and run incident triage change-first, with deterministic scripts doing the mechanical
+      checks and hard lines the agent doesn't cross: it recommends, it never applies. The interesting problem in 2026 isn't whether AI can do infrastructure
       work — it's building the guardrails so it does it safely. That's a platform problem, and
       platform problems are what I like.
     </p>
@@ -229,27 +235,28 @@
       </div>
       <p class="job-role">Platform Engineer <span>Sep 2023 – Present</span></p>
       <ul>
-        <li>Cut EKS compute cost ~30% (fleet from ~200 to ~140 nodes) and node scale-up time from ~5 min to ~45 sec by migrating provisioning from Cluster Autoscaler to Karpenter — just-in-time, right-sized nodes with workload consolidation, split across NodePools (spot for general workloads, on-demand for critical cluster ops).</li>
+        <li>Cut EKS compute cost ~30% and node scale-up time ~80% by migrating from Cluster Autoscaler to Karpenter — just-in-time, right-sized nodes with spot/on-demand NodePool separation.</li>
         <li>Moved app delivery to declarative, pull-based GitOps with ArgoCD — Git as the source of truth, automated drift detection, and fast rollbacks across 40+ apps and 7 EKS clusters.</li>
         <li>Automated TLS, DNS, and secrets with cert-manager, external-dns, and the AWS Secrets Manager CSI driver over IRSA — ACM-synced certs, Route53 records, and pod secret injection with no manual steps.</li>
-        <li>Ran Multi-AZ PostgreSQL on RDS with zero static database credentials — pods mint short-lived tokens via IAM auth over IRSA — and proved recovery with EventBridge-driven snapshot lifecycle and PITR restore drills.</li>
-        <li>Anchored the platform to a 99.5% availability SLO — error-budget and burn-rate alerting via Prometheus/Grafana/Alertmanager, logs dual-shipped through EFK to S3, and EKS control-plane audit logs in CloudWatch.</li>
-        <li>Built 15+ Claude Code agent skills for the platform's infra and deployment work — CI review gates that block unsafe Terraform and Kubernetes changes at PR time instead of in production.</li>
+        <li>Ran Multi-AZ PostgreSQL on RDS with IAM auth via IRSA — short-lived tokens instead of static credentials — plus automated snapshot lifecycle and PITR restore drills.</li>
+        <li>Built platform observability with Prometheus/Grafana and EFK, anchored to a 99.5% availability SLO with error-budget and burn-rate alerting.</li>
+        <li>Built 15+ Claude Code and Codex agent skills that automate incident triage and troubleshooting — cutting mean resolution time from ~2 hours to under 30 minutes.</li>
       </ul>
     </div>
 
     <div class="job">
       <div class="job-head">
         <h3>Samsara</h3>
-        <p class="job-loc">San Francisco, CA</p>
+        <p class="job-loc">Remote</p>
       </div>
       <p class="job-role">DevOps Engineer <span>Oct 2020 – Aug 2023</span></p>
       <ul>
         <li>Migrated live infrastructure from CloudFormation to Terraform — 150+ resources across 5 AWS accounts — with zero downtime via a documented runbook and rollback plan.</li>
         <li>Wired GitHub Actions CI/CD across infra and apps with OIDC federation — plan-on-PR / apply-on-merge for Terraform, image build → ECR → Helm deploy for services.</li>
-        <li>Replaced long-lived IAM users and static access keys with role-based access across 5 AWS accounts — 50+ roles scoped with permission boundaries, cross-account access via STS assume-role, and zero standing access keys in CI after moving pipelines to OIDC.</li>
+        <li>Replaced long-lived IAM users with role-based access across 5 AWS accounts — 50+ scoped roles, zero standing access keys in CI via OIDC.</li>
+        <li>Designed and provisioned custom AWS VPC networking — public/private subnet tiers, custom route tables, and IGW/NAT egress — giving each account isolated, controlled network boundaries.</li>
         <li>Cut S3 storage cost ~$20K/year with lifecycle rules that transition and expire objects by age across buckets.</li>
-        <li>Optimized multi-stage Docker builds across Go, Node.js, and Python microservices on a distroless base — cutting image sizes ~60% (typical service ~1.2 GB → ~450 MB) and shrinking pull/deploy times and attack surface.</li>
+        <li>Optimized multi-stage Docker builds across Go, Node.js, and Python microservices on a distroless base — cutting image sizes ~60% and shrinking pull/deploy times and attack surface.</li>
       </ul>
     </div>
   </section>
@@ -264,7 +271,7 @@
       <div><dt>Security</dt><dd>IAM · IRSA · Kubernetes RBAC · OIDC</dd></div>
       <div><dt>Networking</dt><dd>cert-manager · external-dns</dd></div>
       <div><dt>Observability</dt><dd>Prometheus · Grafana · Alertmanager · CloudWatch · EFK (Fluent Bit / Elasticsearch / Kibana)</dd></div>
-      <div><dt>AI / Agentic</dt><dd>Claude Code (15+ custom agent skills) · context engineering (CLAUDE.md / AGENTS.md) · CI-gated review automation (Python)</dd></div>
+      <div><dt>AI / Agentic</dt><dd>Claude Code · Codex · 15+ custom agent skills · context engineering (CLAUDE.md / AGENTS.md) · CI-gated review automation (Python)</dd></div>
       <div><dt>Scripting</dt><dd>Bash · Python</dd></div>
     </dl>
     <h3 class="certs-title">Certifications</h3>
