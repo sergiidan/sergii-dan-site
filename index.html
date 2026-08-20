@@ -67,6 +67,39 @@
     <article class="work">
       <div class="work-index">01</div>
       <div class="work-body">
+        <h3>30+ agent skills the platform team runs</h3>
+        <p class="work-meta">Chewy · Claude Code &amp; Codex · provisioning, change management, troubleshooting</p>
+        <p>
+          Platform work is repeated judgment — provisioning new infrastructure, changing what's
+          already running, and troubleshooting it when it breaks. I built 30+ Claude Code and Codex
+          agent skills covering that whole lifecycle, and they've been adopted by the platform
+          engineers as part of the daily workflow: scaffolding new infra to our conventions,
+          reviewing changes before they merge, and walking incidents change-first.
+        </p>
+        <p>
+          The three I go deepest on: a Terraform plan reviewer that risk-tiers every change and
+          leads with an apply/don't-apply verdict, a Kubernetes manifest reviewer that checks
+          limits, probes, image pinning and RBAC, and an incident-triage assistant that walks a
+          firing alert change-first. Each pairs the model's judgment with a deterministic Python
+          script that parses the actual plan JSON or YAML — every destroy, every IAM widening,
+          every missing limit — and exits non-zero on critical findings so CI can block a bad
+          apply. The model explains and prioritizes; it doesn't invent findings.
+        </p>
+        <p>
+          I validated them with an eval loop — every test case run with and without the skill,
+          graded against fixed checks. The honest result: the base model is already strong, and the
+          repeatable win is determinism plus safety discipline. The skills recommend rollbacks;
+          they never run them.
+        </p>
+        <ul class="stack" aria-label="Stack">
+          <li>Claude Code</li><li>Codex</li><li>Python</li><li>GitHub Actions</li><li>Terraform</li><li>Kubernetes</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="work">
+      <div class="work-index">02</div>
+      <div class="work-body">
         <h3>Karpenter: a third off the compute bill</h3>
         <p class="work-meta">Chewy · fleet ~200 → ~140 nodes · scale-up ~5 min → ~45 sec</p>
         <p>
@@ -88,38 +121,6 @@
         </p>
         <ul class="stack" aria-label="Stack">
           <li>Karpenter</li><li>EKS</li><li>Terraform</li><li>EC2 Spot</li>
-        </ul>
-      </div>
-    </article>
-
-    <article class="work">
-      <div class="work-index">02</div>
-      <div class="work-body">
-        <h3>Agent skills that gate infrastructure changes</h3>
-        <p class="work-meta">Chewy · 30+ Claude Code &amp; Codex skills · adopted across the platform team</p>
-        <p>
-          Review is where expensive mistakes get caught, and it's inconsistent — a careful reviewer
-          catches a destructive Terraform change at 9am and misses it at 6pm. I built 30+ Claude
-          Code and Codex agent skills for our infra and deployment work so the thorough version is
-          the default. The three I go deepest on: a Terraform plan reviewer that risk-tiers every
-          change and leads with an apply/don't-apply verdict, a Kubernetes manifest reviewer that
-          checks limits, probes, image pinning and RBAC, and an incident-triage assistant that
-          walks a firing alert change-first.
-        </p>
-        <p>
-          Each skill pairs the model's judgment with a deterministic Python script: the script
-          parses the actual plan JSON or YAML and reports exactly what's there — every destroy,
-          every IAM widening, every missing limit — and exits non-zero on critical findings so CI
-          can block a bad apply. The model explains and prioritizes; it doesn't invent findings.
-        </p>
-        <p>
-          I validated them with an eval loop — every test case run with and without the skill,
-          graded against fixed checks. The honest result: the base model is already strong, and the
-          repeatable win is determinism plus safety discipline. The skills recommend rollbacks;
-          they never run them.
-        </p>
-        <ul class="stack" aria-label="Stack">
-          <li>Claude Code</li><li>Python</li><li>GitHub Actions</li><li>Terraform</li><li>Kubernetes</li>
         </ul>
       </div>
     </article>
