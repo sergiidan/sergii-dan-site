@@ -150,20 +150,19 @@
     <article class="work">
       <div class="work-index">04</div>
       <div class="work-body">
-        <h3>A data layer with zero standing credentials</h3>
-        <p class="work-meta">Chewy · 12 Multi-AZ PostgreSQL DBs on RDS · restores drilled in ~15 min</p>
+        <h3>A traffic plane cut over live, zero downtime</h3>
+        <p class="work-meta">Chewy · ingress-nginx → Gateway API · shared dual-stack ALBs</p>
         <p>
-          The databases run Multi-AZ PostgreSQL on RDS with no static credentials anywhere: pods
-          mint short-lived tokens through IAM database authentication over IRSA, so there is
-          nothing to rotate and nothing to leak.
+          North-south traffic ran on ingress-nginx. I migrated the traffic plane to Gateway API on
+          the AWS Load Balancer Controller: shared dual-stack ALBs in front of the clusters, with
+          routing declared as HTTPRoutes instead of annotation-heavy Ingress objects.
         </p>
         <p>
-          Recovery is proved, not assumed — EventBridge-driven snapshot lifecycle, and
-          point-in-time-recovery restore drills that actually run, because a backup you've never
-          restored is a hope, not a plan.
+          The cutover — Ingress to HTTPRoute — happened on live clusters with zero downtime,
+          because a traffic plane is exactly the layer you don't get to take down to replace.
         </p>
         <ul class="stack" aria-label="Stack">
-          <li>RDS</li><li>IAM · IRSA</li><li>EventBridge</li><li>Lambda</li>
+          <li>Gateway API</li><li>AWS Load Balancer Controller</li><li>ALB</li><li>EKS</li>
         </ul>
       </div>
     </article>
@@ -235,7 +234,7 @@
         <li>Moved app delivery to declarative, pull-based GitOps with ArgoCD — Git as the source of truth, automated drift detection, and fast rollbacks across 40+ apps and 7 EKS clusters.</li>
         <li>Automated TLS, DNS, and secrets with cert-manager, external-dns, and the AWS Secrets Manager CSI driver — ACM-synced certs, Route53 records, and pod secret injection with no manual steps, authenticated through per-pod IAM roles (IRSA).</li>
         <li>Cut mean time to detection for production issues from hours to under 10 minutes by implementing end-to-end observability for containerized services on EKS with Prometheus, Grafana, and Alertmanager.</li>
-        <li>Proved recovery of 12 Multi-AZ PostgreSQL databases on RDS in ~15 minutes via point-in-time-recovery restore drills and automated snapshot lifecycle — and eliminated static database credentials, with pods authenticating through short-lived IAM tokens.</li>
+        <li>Migrated the traffic plane off ingress-nginx to Gateway API on the AWS Load Balancer Controller — shared dual-stack ALBs, Ingress → HTTPRoute cutover with zero downtime.</li>
       </ul>
     </div>
 
@@ -260,12 +259,13 @@
     <h2>Skills</h2>
     <p class="section-lede">Tools I've run in production and can talk through end to end.</p>
     <dl class="skills">
-      <div><dt>Cloud &amp; Infra</dt><dd>AWS · Linux · Docker · Kubernetes · Karpenter</dd></div>
+      <div><dt>Cloud &amp; Infra</dt><dd>AWS · Linux · Docker · Kubernetes</dd></div>
+      <div><dt>Scaling</dt><dd>Karpenter · KEDA · HPA</dd></div>
       <div><dt>IaC &amp; Delivery</dt><dd>Terraform · ArgoCD (GitOps) · GitHub Actions · Helm</dd></div>
       <div><dt>Security</dt><dd>IAM · IRSA · Kubernetes RBAC · OIDC</dd></div>
-      <div><dt>Networking</dt><dd>cert-manager · external-dns</dd></div>
+      <div><dt>Networking</dt><dd>Gateway API · AWS Load Balancer Controller · cert-manager · external-dns</dd></div>
       <div><dt>Observability</dt><dd>Prometheus · Grafana · Alertmanager · CloudWatch · EFK (Fluent Bit / Elasticsearch / Kibana)</dd></div>
-      <div><dt>AI / Agentic</dt><dd>Claude Code and Codex (30+ custom agent skills) · context engineering (CLAUDE.md / AGENTS.md) · CI-gated review automation (Python)</dd></div>
+      <div><dt>AI / Agentic</dt><dd>Claude Code · Codex · context engineering (CLAUDE.md / AGENTS.md)</dd></div>
       <div><dt>Scripting</dt><dd>Bash · Python</dd></div>
     </dl>
     <h3 class="certs-title">Certifications</h3>
