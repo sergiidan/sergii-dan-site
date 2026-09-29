@@ -54,7 +54,7 @@
   <!-- Stat band -->
   <section class="stats" aria-label="Key numbers">
     <div><strong>40+</strong><span>apps · 7 EKS clusters</span></div>
-    <div><strong>&lt;10 min</strong><span>time to detection (was hours)</span></div>
+    <div><strong>&lt;30 min</strong><span>incident MTTR (was hours)</span></div>
     <div><strong>~30%</strong><span>compute cost cut</span></div>
     <div><strong>5 min → 45 s</strong><span>node scale-up</span></div>
   </section>
@@ -198,8 +198,9 @@
       I'm a Platform Engineer with five-plus years in — the last three at Chewy, where a six-person
       platform team (four engineers, two principals) runs the EKS platform behind 40+ applications
       across 7 clusters: three app environments and four platform clusters, all Terraform-managed,
-      all delivered from Git with ArgoCD, with observability that catches production issues in
-      under 10 minutes.
+      all delivered from Git with ArgoCD, with observability — RED-metric dashboards and
+      OpenTelemetry tracing — that takes production incidents from firing alert to resolution in
+      under 30 minutes.
     </p>
     <p>
       Before that I spent three years at Samsara as a DevOps engineer. That's where I learned to
@@ -233,7 +234,7 @@
         <li>Cut EKS compute cost ~30% and node scale-up time ~80% by migrating provisioning from Cluster Autoscaler to Karpenter — just-in-time, right-sized nodes with workload consolidation, split across NodePools.</li>
         <li>Moved app delivery to declarative, pull-based GitOps with ArgoCD — Git as the source of truth, automated drift detection, and fast rollbacks across 40+ apps and 7 EKS clusters.</li>
         <li>Automated TLS, DNS, and secrets with cert-manager, external-dns, and the AWS Secrets Manager CSI driver — ACM-synced certs, Route53 records, and pod secret injection with no manual steps, authenticated through per-pod IAM roles (IRSA).</li>
-        <li>Cut mean time to detection for production issues from hours to under 10 minutes by implementing end-to-end observability for containerized services on EKS with Prometheus, Grafana, and Alertmanager.</li>
+        <li>Cut MTTR for production incidents on EKS from hours to under 30 minutes by rebuilding Grafana dashboards around RED metrics and rolling out OpenTelemetry tracing into Tempo, with Prometheus exemplars linking latency spikes directly to the failing trace.</li>
         <li>Migrated the traffic plane off ingress-nginx to Gateway API on the AWS Load Balancer Controller — shared dual-stack ALBs, Ingress → HTTPRoute cutover with zero downtime.</li>
       </ul>
     </div>
@@ -264,7 +265,7 @@
       <div><dt>IaC &amp; Delivery</dt><dd>Terraform · ArgoCD (GitOps) · GitHub Actions · Helm</dd></div>
       <div><dt>Security</dt><dd>IAM · IRSA · Kubernetes RBAC · OIDC</dd></div>
       <div><dt>Networking</dt><dd>Gateway API · AWS Load Balancer Controller · cert-manager · external-dns</dd></div>
-      <div><dt>Observability</dt><dd>Prometheus · Grafana · Alertmanager · CloudWatch · EFK (Fluent Bit / Elasticsearch / Kibana)</dd></div>
+      <div><dt>Observability</dt><dd>OpenTelemetry · Prometheus · Grafana · Tempo · Alertmanager · CloudWatch · EFK (Fluent Bit / Elasticsearch / Kibana)</dd></div>
       <div><dt>AI / Agentic</dt><dd>Claude Code · Codex · context engineering (CLAUDE.md / AGENTS.md)</dd></div>
       <div><dt>Scripting</dt><dd>Bash · Python</dd></div>
     </dl>
